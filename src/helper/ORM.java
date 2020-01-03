@@ -38,17 +38,14 @@ public abstract class ORM {
         return result;
     }
 
-    public abstract void insert(Bean object);
-
-    public abstract int update(Long objectId, Bean object);
-
     public int removeById(String objectId, String idColumn) {
         try {
             Connection conn = DatabaseConnector.getConnection();
 
             String sqlClause = "";
             Statement statementSql = conn.createStatement();
-            if(idColumn == null) idColumn = "id";
+            if (idColumn == null)
+                idColumn = "id";
             sqlClause = String.format("Delete from %s where %s = %d ", this.tableName, idColumn, objectId);
             System.out.println(sqlClause);
 
@@ -62,6 +59,10 @@ public abstract class ORM {
             // TODO: handle exception
         }
     }
+
+    public abstract void insert(Bean object);
+
+    public abstract int update(Long objectId, Bean object);
 
     public abstract Bean tranform(ResultSet queryResult) throws SQLException;
 }
